@@ -1,5 +1,5 @@
 import { postStory } from '../utils/api';
-// import { showLocalNotification } from '../utils/showNotification';
+import { showLocalNotification } from '../utils/showNotification';
 
 export default function AddStory() {
   const el = document.createElement('section');
@@ -78,7 +78,7 @@ export default function AddStory() {
     if (lon) formData.append('lon', lon);
 
     try {
-      // showLocalNotification("🙌 Ada story baru ditambahkan!")
+      showLocalNotification("🙌 Ada story baru ditambahkan!")
       msgEl.innerHTML = `<div class="center">Mengirim...</div>`;
       const res = await postStory(formData);
 
