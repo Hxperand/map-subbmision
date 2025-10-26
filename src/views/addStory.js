@@ -1,4 +1,5 @@
 import { postStory } from '../utils/api';
+// import { showLocalNotification } from '../utils/showNotification';
 
 export default function AddStory() {
   const el = document.createElement('section');
@@ -77,12 +78,27 @@ export default function AddStory() {
     if (lon) formData.append('lon', lon);
 
     try {
+      // showLocalNotification("🙌 Ada story baru ditambahkan!")
       msgEl.innerHTML = `<div class="center">Mengirim...</div>`;
       const res = await postStory(formData);
 
       if (res && !res.error) {
+        alert("✅ Story berhasil ditambahkan!");
         msgEl.innerHTML = `<div class="success">Story berhasil ditambahkan!</div>`;
         el.querySelector('#storyForm').reset();
+
+        try {
+          await fetch('/api/push/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              title: "Story baru berhasil ditambahkan!",
+              body: description || "Klik untuk melihat story baru",
+            })
+          });
+        } catch (pushErr) {
+          console.warn("Push gagal (abaikan jika backend belum dibuat):", pushErr);
+        }
 
         // ✅ Tambahkan ini agar langsung kembali ke halaman utama setelah sukses
         setTimeout(() => {
