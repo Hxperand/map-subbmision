@@ -2,8 +2,8 @@
 import './styles/main.css';
 import { initRouter } from './router';
 import './views/home'; // ensure modules baked in
-import registerSW from '../../registerServiceWorker';
-import { registerPushNotification } from '../../regiterNotification';
+import registerSW from '../registerServiceWorker';
+import { registerPushNotification } from '../regiterNotification';
 
 // init app
 document.addEventListener('DOMContentLoaded', () => {
